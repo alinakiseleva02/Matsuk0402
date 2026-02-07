@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        {% if user.is_authenticated %}
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">
+                    <h3> Успешный вход!</h3>
+                </div>
+                <div class="card-body">
+                    <h1 class="display-4">Здравствуйте, <span class="text-primary">{{ user.username }}!</span></h1>
+                    <p class="lead mt-4">Вы успешно вошли.</p>
+                    
+                    <div class="mt-5">
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                 Выйти
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="card text-center">
+                <div class="card-header bg-primary text-white">
+                    <h3> Добро пожаловать!</h3>
+                </div>
+                <div class="card-body">
+                    <h2 class="mb-4">Для доступа требуется авторизация</h2>
+                    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">
+                         Войти
+                    </a>
+                    
+                  
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
