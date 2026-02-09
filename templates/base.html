@@ -13,19 +13,7 @@
             </a>
             <div class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
-                    <span class="nav-item nav-link text-primary">
-                         {{ user.username }}
-                    </span>
-                    <form class="logout-form nav-item" action="{% url 'logout' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="logout-btn nav-link">
-                             Выход
-                        </button>
-                    </form>
                 {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">
-                         Вход
-                    </a>
                 {% endif %}
             </div>
         </div>
