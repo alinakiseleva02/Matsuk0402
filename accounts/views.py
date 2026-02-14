@@ -19,10 +19,17 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Аккаунт создан для {username}! Теперь вы можете войти.')
+            messages.success(request, f'Аккаунт успешно создан для {username}! Теперь вы можете войти.')
             return redirect('login')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field}: {error}')
     else:
         form = UserCreationForm()
+    
     return render(request, 'register.html', {'form': form})
 
-
+@login_required(login_url='login')
+def profile(request):
+    return render(request, 'profile.html')
